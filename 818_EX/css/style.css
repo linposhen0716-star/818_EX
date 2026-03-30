@@ -197,6 +197,25 @@ body {
   display: block;
   animation: fadeIn 0.3s ease forwards;
 }
+/* --- 防呆機制樣式 --- */
+
+/* 漏填提醒：淡紅框與陰影 */
+.missing-input {
+    border: 1px solid #ff4d4d !important;
+    background-color: rgba(255, 77, 77, 0.05) !important;
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.2);
+}
+
+/* 數值異常大警告：橘黃框 */
+.warning-large {
+    border: 1px solid #ffa500 !important;
+    background-color: rgba(255, 165, 0, 0.05) !important;
+    box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+}
+
+.warning-large::placeholder {
+    color: #ffa500;
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
@@ -301,3 +320,19 @@ input::placeholder {
   color: #000;
   box-shadow: 0 0 20px var(--accent-cyan-glow);
 }
+
+/* --- [新增] 廠商標題異常聯動樣式 --- */
+.vendor-header.vendor-error {
+    border-left: 5px solid #ff4d4d;
+    background: linear-gradient(90deg, rgba(255, 77, 77, 0.1) 0%, transparent 100%);
+}
+
+.vendor-header.vendor-error .input-vendor-name {
+    color: #ff4d4d !important;
+    font-weight: bold;
+}
+
+.vendor-header.vendor-error .toggle-btn {
+    color: #ff4d4d;
+}
+
