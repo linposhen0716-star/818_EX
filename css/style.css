@@ -238,6 +238,33 @@ th {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* --- 常駐提示標籤樣式 --- */
+.relative-cell {
+    position: relative;
+    padding-right: 45px !important; /* 留位置給提示字 */
+}
+
+.suggested-hint {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: rgba(23, 224, 255, 0.4); /* 半透明青色 */
+    pointer-events: none; /* 防止點到這封文字而無法輸入 */
+    transition: all 0.3s ease;
+}
+
+/* 當有警告時提示字也變色 */
+.warning-state .suggested-hint {
+    color: rgba(255, 75, 75, 0.6);
+}
+
+.warning-large + .suggested-hint {
+    color: rgba(255, 165, 0, 0.6);
+}
+
 td {
   padding: 0.8rem 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
