@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('save-btn');
 
     // 初始化廠商資料
-    let vendorsData = [
+        let vendorsData = [
         {
             id: 'v_qf_bread',
-            name: '喬富 (麵包皮/麵包)',
+            name: '喬富 (餅皮/麵包)',
             isExpanded: true,
             products: [
-                { id: 'p_qfb_1', name: '滿福堡-20粒/包', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfb_1', name: '滿福堡 20粒/包', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfb_2', name: '乳酪餅(藍)30入', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfb_3', name: '厚-原味(白)蛋餅皮30片', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfb_4', name: '川吉-原味抓餅10片', stock: 0, sales: 0, suggested: 0 },
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         {
-            id: 'v_qf_配料',
+            id: 'v_q_配料',
             name: '喬富 (配料)',
             isExpanded: false,
             products: [
@@ -78,19 +78,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'p_qfa_11', name: '府城-玉米濃湯-250g/包*24', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfa_12', name: '<自用>肉鬆-細(紅A)1斤', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfa_13', name: '克隆-玉米粒340g易開24入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfa_14', name: '<自用>預-冰烤地瓜（60）3kg 瓜瓜園', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfa_14', name: '<自用>預-冰烤地瓜(60)3kg 瓜瓜園', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfa_15', name: '品皇-1號咖啡豆-1磅/包', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
-            id: 'v_qf_醬類',
+            id: 'v_q_醬類',
             name: '喬富 (醬類)',
             isExpanded: false,
             products: [
                 { id: 'p_qfs_1', name: '喬富-A沙拉(白盒)', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_2', name: '千島醬-1斤', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_3', name: '憶霖-塔塔醬', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfs_4', name: '憶霖-蜂蜜芥末醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfs_4', name: '憶-蜂蜜芥末醬', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_5', name: '覓-花生醬-得3kg', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_6', name: '覓-特級香濃巧克力3g', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_7', name: '(小)草莓醬-900g', stock: 0, sales: 0, suggested: 0 },
@@ -98,40 +98,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'p_qfs_9', name: '(福)椰香奶酥-800g', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_10', name: '(金)台灣凍蒜抹醬', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_qfs_11', name: '藍莓乳酪 約500g', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfs_12', name: '不倒翁-原味美乃滋-3.2kg(箱/4桶)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfs_13', name: '憶家香-大沙拉-3kg(箱/4桶)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfs_14', name: '統滋-大番茄醬-3kg(箱/4桶)', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_qfs_12', name: '金饒-綠茶抹醬 900g', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfs_13', name: '醇瑪佳琳奶油 450g', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfs_14', name: '(金)甜雞醬900ml', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
-            id: 'v_qf_麵類',
+            id: 'v_q_麵類',
             name: '喬富 (麵類)',
             isExpanded: false,
             products: [
-                { id: 'p_qfn_1', name: '大-烏龍麵(冷凍)-200g*30', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_2', name: '南僑-細烏龍麵(熟)-200g*30', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_3', name: '南僑-宮保雞丁麵-30份/箱', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_4', name: '南僑-義大利麵(番茄)-30份/箱', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_5', name: '南僑-青醬麵-30份/箱', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_6', name: '名屋-奶油培根麵-30份/箱', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_7', name: '大-蘑菇醬麵 150g*40', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfn_8', name: '大-黑胡椒醬麵 150g*40', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_qfn_1', name: '珍-義大利醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_2', name: '喬富-三杯雞醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_3', name: '吉-黑胡椒醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_4', name: '吉-蘑菇醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_5', name: '府-古早味肉燥', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_6', name: '喬富-宮保雞丁', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_7', name: '吉家-培根白醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_8', name: '吉家-青醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_9', name: '聯-鐵板麵', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_10', name: '風-小烏龍', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_11', name: '雞絲麵65 g/50入/箱(福慧)', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_12', name: '合-咖哩醬', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfn_13', name: '上群-沙茶肉醬包', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
-            id: 'v_qf_包材',
+            id: 'v_q_包材',
             name: '喬富 (包材)',
             isExpanded: false,
             products: [
-                { id: 'p_qfc_1', name: '漢堡紙-英倫風(1/4)1000入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_2', name: '漢堡紙-黑曼巴(1/4)1000入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_3', name: '漢堡紙-黑曼巴(長1/2)1000入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_4', name: '漢堡紙-牛皮紙(長1/2)1000入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_5', name: '漢堡紙-愛河(長1/2)1000入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_6', name: '牛皮紙袋(小)500入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_7', name: '牛皮紙袋(中)500入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_8', name: '牛皮紙袋(大)500入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_qfc_9', name: '手提袋', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_qfc_1', name: '白色-大圓匙 100入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_2', name: '白-90-500紙杯-50入/20條 LS', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_3', name: '30*30cm牛皮郵報漢堡紙/500入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_4', name: 'L型袋20cm(英文牛皮)100入/包', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_5', name: 'L袋(白)20cm郵報/50束/5000張', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_6', name: '881-8兩防油紙袋/50束/5000張', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_7', name: '881-6兩防油紙袋/50束/5000張', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_8', name: '點心盒100入白', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_9', name: '吐司盒(自扣)100個', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_10', name: '黑-四杯架100入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_11', name: '單-黑色吸管6*18 250*20包/箱', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_12', name: '90筷子 約90雙/包 30包/袋', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_13', name: '902扁碗(黃花)50入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_14', name: '165 平蓋50入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_15', name: '小一杯袋', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_16', name: '沙拉麵包盒', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_17', name: '水果叉 10包/50盒/箱', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_18', name: '無圖-封口膜-450mAP(共用)', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_19', name: '三角袋', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_20', name: '1000cc湯杯碗50入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_21', name: '850<蓋>(十)50入/12條', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qfc_22', name: '紙粿盒 100個', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -139,10 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '豆老爺',
             isExpanded: false,
             products: [
-                { id: 'p_dl_1', name: '豆老爺-豆漿-1.5kg(箱/10)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_dl_2', name: '豆老爺-米漿-1.5kg(箱/10)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_dl_3', name: '豆老爺-豆漿(低)-1.5kg(箱/10)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_dl_4', name: '大-古早味奶茶 1.2kg (箱/10)', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_dl_1', name: '無/有糖豆漿 2500ml約5杯', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_dl_2', name: '米漿 2500ml約5杯', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_dl_3', name: '南瓜豆漿', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_dl_4', name: '燕麥薏仁', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_dl_5', name: '黑芝麻堅果', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -150,10 +169,22 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '好市多',
             isExpanded: false,
             products: [
-                { id: 'p_cs_1', name: '科克蘭-保久乳x24入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_cs_2', name: '科克蘭-無鹽奶油x4入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_cs_3', name: '科克蘭-全脂鮮乳x2入', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_cs_4', name: '泰山-純水x2入', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_cs_1', name: '科克蘭希臘優格', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_2', name: '經典水煮貝果12入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_3', name: '台豬高津德式香腸', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_4', name: '8吋墨西哥薄餅皮', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_5', name: '五月花妙用衛生紙', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_6', name: 'MARIANI葡萄乾', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_7', name: '廚房紙巾', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_8', name: 'KS抽取式衛生紙', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_9', name: '小蘇打洗碗精', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_10', name: 'ALPHAmic烹調紙', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_11', name: 'KS強效洗衣膠囊', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_12', name: 'KS晶亮洗碗精', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_13', name: '鋁箔紙', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_14', name: '保鮮膜', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_15', name: '棉花糖約150顆(大)', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_cs_16', name: '草莓牛奶巧克力脆片', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -161,8 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '開元',
             isExpanded: false,
             products: [
-                { id: 'p_ky_1', name: '開元-戀職人鮮奶(箱/12入)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_ky_2', name: '開元-戀職人鮮乳(單罐)', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_ky_1', name: '職人鮮奶 936ml', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ky_2', name: '香草奶精水500ml', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ky_3', name: '黃金雞塊 約15份', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ky_4', name: '可可亞約8杯', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ky_5', name: '錫蘭紅茶/30+5盒/24包', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ky_6', name: '璞珞咖啡 嚴選-經典風味454g', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ky_7', name: '璞珞咖啡 嚴選-藍山風味454g', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -170,9 +206,19 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '憶家鄉',
             isExpanded: false,
             products: [
-                { id: 'p_yjx_1', name: '燒肉-1kg約12份/包', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_yjx_2', name: '燒肉-2.2kg約25份/包', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_yjx_3', name: '德式香腸x20條/包', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_yjx_1', name: '小肉盤20粒', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_2', name: '(憶)黑胡椒豬排15入', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_3', name: '麥火腿50片', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_4', name: '紅燒牛肉', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_5', name: '梅干扣肉', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_6', name: '羅漢素燴', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_7', name: '玉米濃湯包700g', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_8', name: '小芋頭包30粒', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_9', name: '小奶黃包30粒', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_10', name: '日式唐揚雞塊1kg包', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_11', name: '起司雞排/豬排 10 片', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_12', name: '檸檬二節翅約12支', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_yjx_13', name: '預炸蝦球500g/包', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -184,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'p_m_2', name: '鼎源白皮蛋餅皮30片', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_m_3', name: '厚切蔥抓餅-10片(箱/10包)', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_m_4', name: '丸漢堡三層培根-1kg(箱/12包)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_m_5', name: '台式菠羅堡', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_m_5', name: '台式菠蘿堡', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_m_6', name: '甜雞醬', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_m_7', name: '香雞城小肉豆約300顆', stock: 0, sales: 0, suggested: 0 },
                 { id: 'p_m_8', name: '西班牙起司片-84片', stock: 0, sales: 0, suggested: 0 },
@@ -196,8 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '野村',
             isExpanded: false,
             products: [
-                { id: 'p_n_1', name: '野村-原味米血 1.1kg*12包', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_n_2', name: '野村-辣味米血 1.1kg*12包', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_n_1', name: '南洋果香咖哩雞', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_n_2', name: '迷迭香雞腿(生)', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -205,8 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '蘿蔔糕',
             isExpanded: false,
             products: [
-                { id: 'p_rbg_1', name: '港式蘿蔔糕(箱/10片)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_rbg_2', name: '台式蘿蔔糕(箱/10片)', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_rbg_1', name: '蘿蔔糕', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -214,8 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '大不同餐包',
             isExpanded: false,
             products: [
-                { id: 'p_dbt_1', name: '原味餐包(10入)', stock: 0, sales: 0, suggested: 0 },
-                { id: 'p_dbt_2', name: '芝麻餐包(10入)', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_dbt_1', name: '餐包18顆', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -223,31 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
             name: '威翰',
             isExpanded: false,
             products: [
-                { id: 'p_wh_1', name: '威翰-全脂牛奶(箱/12入)', stock: 0, sales: 0, suggested: 0 }
-            ]
-        },
-        {
-            id: 'v_鼎耀',
-            name: '鼎耀',
-            isExpanded: false,
-            products: [
-                { id: 'p_dy_1', name: '鼎耀-精選茶葉', stock: 0, sales: 0, suggested: 0 }
-            ]
-        },
-        {
-            id: 'v_親民',
-            name: '親民',
-            isExpanded: false,
-            products: [
-                { id: 'p_qm_1', name: '親民-特選食材', stock: 0, sales: 0, suggested: 0 }
-            ]
-        },
-        {
-            id: 'v_南北貨',
-            name: '南北貨',
-            isExpanded: false,
-            products: [
-                { id: 'p_nbh_1', name: '乾拌麵', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_wh_1', name: '吐司20片', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_wh_2', name: '厚片10片', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_wh_3', name: '漢堡', stock: 0, sales: 0, suggested: 0 }
             ]
         },
         {
@@ -255,7 +277,38 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'IDEAHOUSE',
             isExpanded: false,
             products: [
-                { id: 'p_ih_1', name: '環保餐具組', stock: 0, sales: 0, suggested: 0 }
+                { id: 'p_ih_1', name: '16oz白咖啡杯', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_ih_2', name: '粿盒900入', stock: 0, sales: 0, suggested: 0 }
+            ]
+        },
+        {
+            id: 'v_鼎耀',
+            name: '鼎耀',
+            isExpanded: false,
+            products: [
+                { id: 'p_dy_1', name: '鼎耀-前腿火鍋捲(前火捲)3K*2', stock: 0, sales: 0, suggested: 0 }
+            ]
+        },
+        {
+            id: 'v_親民',
+            name: '親民',
+            isExpanded: false,
+            products: [
+                { id: 'p_qm_1', name: '墨魚堡', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qm_2', name: '可頌(大)', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qm_3', name: '巧巴達', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qm_4', name: '丹麥吐司切4片', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_qm_5', name: '麥香堡', stock: 0, sales: 0, suggested: 0 }
+            ]
+        },
+        {
+            id: 'v_南北貨',
+            name: '南北貨',
+            isExpanded: false,
+            products: [
+                { id: 'p_nbh_1', name: '蜂蜜', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_nbh_2', name: '耐炸油', stock: 0, sales: 0, suggested: 0 },
+                { id: 'p_nbh_3', name: '沙拉脫', stock: 0, sales: 0, suggested: 0 }
             ]
         }
     ];
