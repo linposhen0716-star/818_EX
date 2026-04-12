@@ -17,10 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const exportExcelBtn = document.getElementById('export-excel-btn');
         const collapseAllBtn = document.getElementById('collapse-all-btn');
 
-        // 進位工具函數 (0.5 為最小單位)
         const calculateIdeal = (d) => {
                 if (!d || d <= 0) return 0;
                 return Math.ceil(d * 2) / 2;
+        };
+
+        // 同步主按鈕箭頭與狀態
+        const syncMasterToggle = () => {
+                const anyOpen = vendorsData.some(v => v.isExpanded);
+                collapseAllBtn.classList.toggle('expanded', anyOpen);
+                const btnText = collapseAllBtn.querySelector('.btn-text');
+                if (btnText) {
+                    btnText.textContent = anyOpen ? '收起全部' : '展開全部';
+                }
         };
 
 
@@ -1505,50 +1514,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const titleWrapper = headerDiv.querySelector('.vendor-title-wrapper');
 
-
-
-
-
-
-
-
-
                 // Prevent toggle when clicking the input itself
-
-
-
-
                 vendorNameInput.addEventListener('click', (e) => e.stopPropagation());
 
-
-
-
-
-
-
-
-
                 titleWrapper.addEventListener('click', () => {
-
-
-
-
                         vendor.isExpanded = !vendor.isExpanded;
-
-
-
-
-                        headerDiv.classList.toggle('expanded');
-
-
-
-
-                        productsDiv.classList.toggle('expanded');
-
-
-
-
+                        renderAll();
+                        syncMasterToggle();
                 });
+
+                // Add Product
 
 
 
@@ -2505,17 +2480,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
         });
 
-        // 3. 一鍵收納邏輯
+        // 3. 一鍵收納邏輯 (全開 / 全關 切換)
         collapseAllBtn.addEventListener('click', () => {
+                const anyOpen = vendorsData.some(v => v.isExpanded);
                 vendorsData.forEach(vendor => {
-                        vendor.isExpanded = false;
+                        vendor.isExpanded = !anyOpen;
                 });
                 renderAll();
-                alert('📁 已收納所有廠商清單');
+                syncMasterToggle();
         });
 
         // 初始渲染
         renderAll();
+        syncMasterToggle();
 
 });
 

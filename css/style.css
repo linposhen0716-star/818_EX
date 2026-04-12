@@ -373,24 +373,6 @@ tr:hover .suggested-hint {
     box-shadow: 0 15px 40px rgba(0, 242, 254, 0.5);
 }
 
-/* --- 新增按鈕樣式 --- */
-.secondary-btn {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-muted);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
-    transition: all 0.2s;
-}
-
-.secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-main);
-}
-
 .footer-actions {
     position: fixed;
     bottom: 2rem;
@@ -398,6 +380,41 @@ tr:hover .suggested-hint {
     display: flex;
     gap: 1rem;
     z-index: 100;
+}
+
+/* --- 一鍵收納大型按鈕樣式 --- */
+.master-toggle-btn {
+    background: rgba(0, 242, 254, 0.05);
+    color: var(--accent-cyan);
+    border: 1px solid var(--accent-cyan);
+    padding: 1rem 2.5rem; /* 與 .save-btn 相同 */
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.master-toggle-btn:hover {
+    background: var(--accent-cyan);
+    color: #000;
+    box-shadow: 0 0 25px var(--accent-cyan-glow);
+    transform: translateY(-2px);
+}
+
+.master-toggle-btn .toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.master-toggle-btn.expanded .toggle-icon {
+    transform: rotate(90deg);
 }
 
 .export-btn {
