@@ -1,364 +1,384 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg-color: #0b101e;
-  --surface-color: rgba(18, 24, 38, 0.7);
-  --border-color: rgba(0, 242, 254, 0.15);
-  --accent-cyan: #00f2fe;
-  --accent-cyan-glow: rgba(0, 242, 254, 0.4);
-  --danger-red: #ff4b4b;
-  --danger-red-glow: rgba(255, 75, 75, 0.3);
-  --text-main: #e6edf3;
-  --text-muted: #8b949e;
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+    --bg-color: #05070a;
+    --surface-color: rgba(13, 17, 23, 0.7);
+    --border-color: rgba(0, 242, 254, 0.2);
+    --accent-cyan: #00f2fe;
+    --accent-cyan-glow: rgba(0, 242, 254, 0.5);
+    --accent-purple: #bd00ff;
+    --danger-red: #ff4b4b;
+    --danger-red-glow: rgba(255, 75, 75, 0.4);
+    --text-main: #f0f6fc;
+    --text-muted: #8b949e;
+    --font-sans: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --transition-speed: 0.3s;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  font-family: var(--font-sans);
-  min-height: 100vh;
-  padding: 2rem;
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(0, 242, 254, 0.05), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.03), transparent 25%);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    padding: 3rem 2rem;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.08), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(189, 0, 255, 0.05), transparent 30%),
+        linear-gradient(rgba(5, 7, 10, 0.8), rgba(5, 7, 10, 0.8));
+    background-attachment: fixed;
 }
 
 .dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
+/* ================== Header Section ================== */
 .header {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .header h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #fff;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.3));
 }
 
 .subtitle {
-  color: var(--accent-cyan);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
-  opacity: 0.8;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .add-btn {
-  background: transparent;
-  color: var(--accent-cyan);
-  border: 1px solid var(--accent-cyan);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
+    background: rgba(0, 242, 254, 0.05);
+    color: var(--accent-cyan);
+    border: 1px solid var(--accent-cyan);
+    padding: 0.7rem 1.4rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
 }
 
 .add-btn:hover {
-  background: var(--accent-cyan-glow);
-  box-shadow: 0 0 15px var(--accent-cyan-glow);
-  color: #fff;
+    background: var(--accent-cyan);
+    color: #000;
+    box-shadow: 0 0 25px var(--accent-cyan-glow);
+    transform: translateY(-2px);
 }
 
 /* ================== Vendor Group Styles ================== */
 .vendor-group {
-  background: var(--surface-color);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  overflow: hidden;
+    background: var(--surface-color);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    transition: all var(--transition-speed) ease;
+    overflow: hidden;
 }
 
 .vendor-group:hover {
-  border-color: rgba(0, 242, 254, 0.4);
+    border-color: rgba(0, 242, 254, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 .vendor-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-  transition: background 0.3s ease;
-  border-bottom: 1px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: all var(--transition-speed);
 }
 
 .vendor-header:hover {
-  background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .vendor-header.expanded {
-  border-bottom: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .vendor-title-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
 }
 
 .toggle-icon {
-  color: var(--accent-cyan);
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-  width: 20px;
-  text-align: center;
+    color: var(--accent-cyan);
+    font-size: 0.8rem;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0.6;
 }
 
 .vendor-header.expanded .toggle-icon {
-  transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 1;
 }
 
 .input-vendor-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #fff;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid transparent;
-  transition: all 0.3s ease;
-  width: 50%;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    width: 60%;
+    padding: 0.2rem 0;
 }
 
 .input-vendor-name:focus {
-  outline: none;
-  border-bottom: 1px solid var(--accent-cyan);
-  color: var(--accent-cyan);
+    outline: none;
+    border-bottom-color: var(--accent-cyan);
+    color: var(--accent-cyan);
 }
 
 .vendor-actions {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 12px;
 }
 
 .add-product-btn {
-  background: rgba(0, 242, 254, 0.1);
-  color: var(--accent-cyan);
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
 }
 
 .add-product-btn:hover {
-  background: var(--accent-cyan);
-  color: #000;
+    background: rgba(0, 242, 254, 0.15);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
 }
 
 .delete-vendor-btn {
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid transparent;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.4;
 }
 
 .delete-vendor-btn:hover {
-  color: var(--danger-red);
-  background: rgba(255, 75, 75, 0.1);
+    color: var(--danger-red);
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 /* ================== Products Table ================== */
 .vendor-products {
-  display: none;
-  padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    display: none;
+    padding: 0 2rem 2rem 2rem;
 }
 
 .vendor-products.expanded {
-  display: block;
-  animation: fadeIn 0.3s ease forwards;
-}
-/* --- 防呆機制樣式 --- */
-
-/* 漏填提醒：淡紅框與陰影 */
-.missing-input {
-    border: 1px solid #ff4d4d !important;
-    background-color: rgba(255, 77, 77, 0.05) !important;
-    box-shadow: 0 0 5px rgba(255, 77, 77, 0.2);
+    display: block;
+    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 數值異常大警告：橘黃框 */
-.warning-large {
-    border: 1px solid #ffa500 !important;
-    background-color: rgba(255, 165, 0, 0.05) !important;
-    box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
-}
-
-.warning-large::placeholder {
-    color: #ffa500;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    text-align: left;
+    table-layout: fixed; /* 固定版面避免擠壓 */
 }
 
+th:nth-child(1), td:nth-child(1) { width: 40%; } /* 品名 */
+th:nth-child(2), td:nth-child(2) { width: 15%; } /* 庫存 */
+th:nth-child(3), td:nth-child(3) { width: 15%; } /* 銷量 */
+th:nth-child(4), td:nth-child(4) { width: 22%; } /* 建議進貨量 */
+th:nth-child(5), td:nth-child(5) { width: 8%; }  /* 刪除 */
+
 th {
-  color: var(--text-muted);
-  font-weight: 500;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 1rem 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 0.5rem 1rem;
+    opacity: 0.7;
+    text-align: center; /* 預設文字居中 */
+}
+
+th:first-child { text-align: left; } /* 品名靠左 */
+
+td {
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.2s;
+}
+
+td:first-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.03);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+td:last-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.03);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 242, 254, 0.2);
+}
+
+/* Row warning states */
+tr.warning-state td {
+    background: rgba(255, 75, 75, 0.04);
+    border-color: rgba(255, 75, 75, 0.2);
+}
+
+/* Inputs styling */
+input {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+    padding: 0.4rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+input:focus {
+    outline: none;
+    background: rgba(0, 242, 254, 0.05);
+}
+
+.col-num input {
+    font-family: var(--font-mono);
+    text-align: center; /* 讓數字在文字正下方 */
+}
+
+/* --- 防呆機制樣式 --- */
+.missing-input {
+    background: rgba(255, 77, 77, 0.1) !important;
+    box-shadow: inset 0 0 0 1px var(--danger-red);
+}
+
+.warning-large {
+    color: #ffa500 !important;
+    box-shadow: inset 0 0 0 1px #ffa500;
 }
 
 /* --- 常駐提示標籤樣式 --- */
 .relative-cell {
     position: relative;
-    padding-right: 45px !important; /* 留位置給提示字 */
+    /* 移除 padding，讓文字真正居中 */
 }
 
 .suggested-hint {
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.8rem;
     font-family: var(--font-mono);
-    color: rgba(23, 224, 255, 0.4); /* 半透明青色 */
-    pointer-events: none; /* 防止點到這封文字而無法輸入 */
+    color: var(--accent-cyan);
+    opacity: 0.4;
+    pointer-events: none;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-/* 當有警告時提示字也變色 */
+tr:hover .suggested-hint {
+    opacity: 0.8;
+}
+
 .warning-state .suggested-hint {
-    color: rgba(255, 75, 75, 0.6);
-}
-
-.warning-large + .suggested-hint {
-    color: rgba(255, 165, 0, 0.6);
-}
-
-td {
-  padding: 0.8rem 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  transition: all 0.3s ease;
-}
-
-tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* Row warning states */
-tr.warning-state td {
-  background: rgba(255, 75, 75, 0.05);
-  border-bottom: 1px solid var(--danger-red-glow);
-}
-
-tr.warning-state td input {
-  color: var(--danger-red);
-}
-
-/* Inputs styling */
-input {
-  background: transparent;
-  border: none;
-  color: var(--text-main);
-  font-family: inherit;
-  font-size: 0.95rem;
-  width: 100%;
-  padding: 0.25rem;
-  border-bottom: 1px solid transparent;
-  transition: all 0.3s ease;
-}
-
-input:focus {
-  outline: none;
-  border-bottom: 1px solid var(--accent-cyan);
-  box-shadow: 0 5px 5px -5px var(--accent-cyan-glow);
-}
-
-input::placeholder {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.col-num input {
-  font-family: var(--font-mono);
+    color: var(--danger-red);
+    opacity: 0.8;
 }
 
 .action-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 
 .action-btn:hover {
-  color: var(--danger-red);
-  background: rgba(255, 75, 75, 0.1);
+    color: var(--danger-red);
+    background: rgba(255, 75, 75, 0.1);
 }
 
 .save-btn {
-  background: transparent;
-  border: 1px solid var(--accent-cyan);
-  color: var(--accent-cyan);
-  padding: 0.8rem 2rem;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 1rem;
-  float: right;
-  transition: all 0.3s ease;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  letter-spacing: 1px;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--accent-cyan);
+    color: #000;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
 }
 
 .save-btn:hover {
-  background: var(--accent-cyan);
-  color: #000;
-  box-shadow: 0 0 20px var(--accent-cyan-glow);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 242, 254, 0.5);
 }
 
-/* --- [新增] 廠商標題異常聯動樣式 --- */
+/* --- 廠商標題異常聯動樣式 --- */
 .vendor-header.vendor-error {
-    border-left: 5px solid #ff4d4d;
-    background: linear-gradient(90deg, rgba(255, 77, 77, 0.1) 0%, transparent 100%);
+    border-left: 6px solid var(--danger-red);
+    background: linear-gradient(90deg, rgba(255, 77, 77, 0.08) 0%, transparent 100%);
 }
 
 .vendor-header.vendor-error .input-vendor-name {
-    color: #ff4d4d !important;
-    font-weight: bold;
-}
-
-.vendor-header.vendor-error .toggle-btn {
-    color: #ff4d4d;
+    color: var(--danger-red) !important;
 }
