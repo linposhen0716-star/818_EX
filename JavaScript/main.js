@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const saveBtn = document.getElementById('save-btn');
+        const exportExcelBtn = document.getElementById('export-excel-btn');
+        const collapseAllBtn = document.getElementById('collapse-all-btn');
+
+        // 進位工具函數 (0.5 為最小單位)
+        const calculateIdeal = (d) => {
+                if (!d || d <= 0) return 0;
+                return Math.ceil(d * 2) / 2;
+        };
 
 
 
@@ -1756,34 +1764,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-
-                const calculateIdeal = (d) => {
-
-
-
-
-                        if (d <= 0) return 0;
-
-
-
-
-                        return Math.ceil(d * 2) / 2;
-
-
-
-
-                };
-
-
-
-
-
-
-
-
-
                 const suggestedPlaceholder = calculateIdeal(diff);
 
 
@@ -1810,11 +1790,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             <td class="col-num"><input type="number" class="input-stock" min="0" value="${data.stock}" placeholder="0"></td>
-
-
-
-
-            <td class="col-num"><input type="number" class="input-sales" min="0" value="${data.sales}" placeholder="0"></td>
+            <td class="col-num"><input type="number" class="input-sales" min="0" value="${calculateIdeal(data.sales)}" placeholder="0"></td>
 
 
 
@@ -2479,8 +2455,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 1. 儲存至瀏覽器本地空間
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(vendorsData));
+                alert('🎉 資料已成功儲存至瀏覽器！\n（下次開啟時會自動載入目前狀態）');
+        });
 
-                // 2. 匯出 Excel (.xlsx) 檔案
+        // 2. 匯出 Excel (.xlsx) 檔案
+        exportExcelBtn.addEventListener('click', () => {
+                const missingRows = [];
+                const warningRows = [];
+                
+                // 檢查是否有漏填或異常（選擇性保留檢查邏輯）
+                vendorsData.forEach(v => {
+                    v.products.forEach(p => {
+                        if ((p.stock === null || p.sales === null) && (p.stock !== null || p.sales !== null)) missingRows.push(p.name);
+                    });
+                });
+
+                if (missingRows.length > 0) {
+                    if (!confirm(`⚠ 發現有 ${missingRows.length} 個品項漏填欄位，確定要直接匯出嗎？`)) return;
+                }
+
                 try {
                         const date = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
                         const fileName = `818_進貨清單_${date}.xlsx`;
@@ -2493,51 +2486,36 @@ document.addEventListener('DOMContentLoaded', () => {
                                         exportData.push([
                                                 vendor.name,
                                                 product.name,
-                                                product.stock || '',
-                                                product.sales || 0,
-                                                product.suggested || ''
+                                                product.stock || 0,
+                                                calculateIdeal(product.sales || 0),
+                                                product.suggested || 0
                                         ]);
                                 });
                         });
 
-                        // 建立工作表 (Worksheet)
                         const ws = XLSX.utils.aoa_to_sheet(exportData);
-                        
-                        // 建立工作簿 (Workbook)
                         const wb = XLSX.utils.book_new();
                         XLSX.utils.book_append_sheet(wb, ws, "進貨清單");
-
-                        // 執行下載
                         XLSX.writeFile(wb, fileName);
                         
-                        alert(`🎉 存檔成功！\n\n1. 資料已儲存至瀏覽器 (下次開啟自動載入)\n2. Excel 表格已匯出：${fileName}`);
+                        alert(`📊 Excel 表格已匯出：${fileName}`);
                 } catch (err) {
                         console.error('匯出 Excel 失敗:', err);
-                        alert('🎉 盤點資料已儲存至瀏覽器！\n(但匯出 Excel 時發生錯誤，請檢查主控台)');
+                        alert('❌ 匯出 Excel 時發生錯誤，請檢查主控台');
                 }
-
-
-
-
         });
 
-
-
-
-
-
-
-
+        // 3. 一鍵收納邏輯
+        collapseAllBtn.addEventListener('click', () => {
+                vendorsData.forEach(vendor => {
+                        vendor.isExpanded = false;
+                });
+                renderAll();
+                alert('📁 已收納所有廠商清單');
+        });
 
         // 初始渲染
-
-
-
-
         renderAll();
-
-
-
 
 });
 

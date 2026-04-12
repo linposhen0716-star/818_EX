@@ -14,6 +14,7 @@
         <div class="header">
             <div>
                 <h1>盤點進貨表</h1>
+                <button id="collapse-all-btn" class="secondary-btn">一鍵收納</button>
             </div>
             <button id="add-vendor-btn" class="add-btn">+新增廠商</button>
         </div>
@@ -23,7 +24,10 @@
             <!-- JavaScript will inject vendor groups here -->
         </div>
 
-        <button id="save-btn" class="save-btn">存檔</button>
+        <div class="footer-actions">
+            <button id="export-excel-btn" class="export-btn">匯出Excel</button>
+            <button id="save-btn" class="save-btn">存檔</button>
+        </div>
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
