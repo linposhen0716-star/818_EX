@@ -2,50 +2,147 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
         const container = document.getElementById('inventory-container');
-
-
-
 
         const addVendorBtn = document.getElementById('add-vendor-btn');
 
-
-
-
         const saveBtn = document.getElementById('save-btn');
+
         const exportExcelBtn = document.getElementById('export-excel-btn');
+
         const collapseAllBtn = document.getElementById('collapse-all-btn');
 
+
+
         const calculateIdeal = (d) => {
+
                 if (!d || d <= 0) return 0;
+
                 return Math.ceil(d * 2) / 2;
+
         };
 
-        // 同步主按鈕箭頭與狀態
-        const syncMasterToggle = () => {
-                const anyOpen = vendorsData.some(v => v.isExpanded);
-                collapseAllBtn.classList.toggle('expanded', anyOpen);
-                const btnText = collapseAllBtn.querySelector('.btn-text');
-                if (btnText) {
-                    btnText.textContent = anyOpen ? '收起全部' : '展開全部';
+
+
+        const parseProductSpec = (name) => {
+
+                const match = name.match(/(\d+(?:\.\d+)?)\s*(?:支|片|顆|杯|入|份|罐|g|入)?\s*\/\s*(包|盒|瓶|罐|盤|箱|條|個)/);
+
+                if (match) {
+
+                        return {
+
+                                qty: parseFloat(match[1]),
+
+                                unit: match[2]
+
+                        };
+
                 }
+
+                return { qty: 1, unit: '包' };
+
         };
 
 
 
+        const formatUnitValue = (val) => {
+
+                if (val === null || val === undefined || val === '') return '';
+
+                const num = Number(val);
+
+                return Number.isInteger(num) ? num.toString() : num.toFixed(1);
+
+        };
 
 
 
+        const syncMasterToggle = () => {
+
+                const anyOpen = vendorsData.some(v => v.isExpanded);
+
+                collapseAllBtn.classList.toggle('expanded', anyOpen);
+
+                const btnText = collapseAllBtn.querySelector('.btn-text');
+
+                if (btnText) {
+
+                        btnText.textContent = anyOpen ? '收起全部' : '展開全部';
+
+                }
+
+        };
 
 
 
-        // 初始化廠商資料
+        const refreshVendorHeaderStatus = (groupDiv) => {
 
+                if (!groupDiv) return;
+
+                const header = groupDiv.querySelector('.vendor-header');
+
+                if (!header) return;
+
+                const needsAttention = groupDiv.querySelectorAll('.missing-input, .warning-large, .warning-state').length > 0;
+
+                if (needsAttention) {
+
+                        header.classList.add('vendor-error');
+
+                } else {
+
+                        header.classList.remove('vendor-error');
+
+                }
+
+        };
 
 
 
         let vendorsData = [
+                {
+                        "id": "v_ext_0_egg",
+                        "name": "蛋行",
+                        "isExpanded": false,
+                        "products": [
+                                {
+                                        "id": "p_ext_egg_1",
+                                        "name": "",
+                                        "stock": "",
+                                        "sales": 0,
+                                        "suggested": ""
+                                }
+                        ]
+                },
+                {
+                        "id": "v_ext_0_px",
+                        "name": "全聯",
+                        "isExpanded": false,
+                        "products": [
+                                {
+                                        "id": "p_ext_2_1",
+                                        "name": "",
+                                        "stock": "",
+                                        "sales": 0,
+                                        "suggested": ""
+                                }
+                        ]
+                },
+                {
+                        "id": "v_ext_0_fruit",
+                        "name": "水果，菜商",
+                        "isExpanded": false,
+                        "products": [
+                                {
+                                        "id": "p_ext_2_1",
+                                        "name": "",
+                                        "stock": "",
+                                        "sales": 0,
+                                        "suggested": ""
+                                }
+                        ]
+                },
                 {
                         "id": "v_ext_1",
                         "name": "喬富-餅皮/麵包",
@@ -70,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "津-煎水餃約100顆/包",
                                         "stock": "",
                                         "sales": 120.9,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_3_2",
@@ -140,7 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "紅龍-小巧雞球約18份/包",
                                         "stock": "",
                                         "sales": 81.5,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_4_5",
@@ -189,14 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "卜-(原)無骨鹹酥雞 13份/包",
                                         "stock": "",
                                         "sales": 85.8,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_4_12",
                                         "name": "小肉豆蜜糖 約30份/包",
                                         "stock": "",
                                         "sales": 119.3,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_4_13",
@@ -245,7 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "喬富伯爵紅茶-約65杯/包",
                                         "stock": "",
                                         "sales": 86.9,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_5_5",
@@ -693,7 +795,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "黃金雞塊  約15份/包",
                                         "stock": "",
                                         "sales": 123.7,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_11_4",
@@ -707,7 +810,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "錫蘭紅茶 約16杯/包",
                                         "stock": "",
                                         "sales": 86.9,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 }
                         ]
                 },
@@ -972,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                         "id": "v_ext_17",
-                        "name": "好市多-丸漢堡",
+                        "name": "丸漢堡",
                         "isExpanded": false,
                         "products": [
                                 {
@@ -980,7 +1084,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "鼎源白皮蛋餅皮30片/包",
                                         "stock": "",
                                         "sales": 146.7,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_18_2",
@@ -1035,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                         "id": "v_ext_18",
-                        "name": "好市多-野村",
+                        "name": "野村",
                         "isExpanded": false,
                         "products": [
                                 {
@@ -1056,7 +1161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                         "id": "v_ext_19",
-                        "name": "好市多-蘿蔔糕",
+                        "name": "蘿蔔糕",
                         "isExpanded": false,
                         "products": [
                                 {
@@ -1064,13 +1169,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "蘿蔔糕 16片/盤",
                                         "stock": "",
                                         "sales": 85.1,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 }
                         ]
                 },
                 {
                         "id": "v_ext_20",
-                        "name": "好市多-大不同餐包",
+                        "name": "大不同餐包",
                         "isExpanded": false,
                         "products": [
                                 {
@@ -1084,7 +1190,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                         "id": "v_ext_21",
-                        "name": "好市多-威翰",
+                        "name": "威翰",
                         "isExpanded": false,
                         "products": [
                                 {
@@ -1092,7 +1198,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         "name": "吐司20片/條",
                                         "stock": "",
                                         "sales": 201.7,
-                                        "suggested": ""
+                                        "suggested": "",
+                                        "isTopSales": true
                                 },
                                 {
                                         "id": "p_ext_22_2",
@@ -1112,1390 +1219,435 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
         ];
 
-        // 嘗試從 LocalStorage 載入先前存檔的資料
+
+
         const STORAGE_KEY = 'inventory_system_data';
+
         const cachedData = localStorage.getItem(STORAGE_KEY);
+
         if (cachedData) {
+
                 try {
+
                         vendorsData = JSON.parse(cachedData);
+
                         console.log('✅ 已從本地儲存載入盤點資料');
+
                 } catch (e) {
+
                         console.error('❌ 載入本地儲存失敗:', e);
+
                 }
+
         }
-
-
-
-
-
-
 
 
 
         function renderAll() {
 
-
-
-
                 container.innerHTML = '';
-
-
-
 
                 vendorsData.forEach(vendor => {
 
-
-
-
-                        const vendorEl = createVendorElement(vendor);
-
-
-
-
-                        container.appendChild(vendorEl);
-
-
-
+                        container.appendChild(createVendorElement(vendor));
 
                 });
 
-
-
+                syncMasterToggle();
 
         }
-
-
-
-
-
-
 
 
 
         function createVendorElement(vendor) {
 
-
-
-
                 const groupDiv = document.createElement('div');
 
-
-
-
                 groupDiv.className = 'vendor-group';
-
-
-
 
                 groupDiv.dataset.id = vendor.id;
 
 
 
-
-
-
-
-
-
-                // --- Vendor Header ---
-
-
-
-
                 const headerDiv = document.createElement('div');
-
-
-
 
                 headerDiv.className = `vendor-header ${vendor.isExpanded ? 'expanded' : ''}`;
 
-
-
-
-
-
-
-
-
                 headerDiv.innerHTML = `
 
+                    <div class="vendor-title-wrapper">
 
+                        <span class="toggle-icon">▶</span>
 
+                        <input type="text" class="input-vendor-name" value="${vendor.name}" placeholder="輸入廠商名稱">
 
-            <div class="vendor-title-wrapper">
+                    </div>
 
+                    <div class="vendor-actions">
 
+                        <button class="add-product-btn">+ 加入品名</button>
 
+                        <button class="delete-vendor-btn" title="刪除整個廠商">✖</button>
 
-                <span class="toggle-icon">▶</span>
+                    </div>
 
-
-
-
-                <input type="text" class="input-vendor-name" value="${vendor.name}" placeholder="輸入廠商名稱">
-
-
-
-
-            </div>
-
-
-
-
-            <div class="vendor-actions">
-
-
-
-
-                <button class="add-product-btn">+ 加入品名</button>
-
-
-
-
-                <button class="delete-vendor-btn" title="刪除整個廠商">✖</button>
-
-
-
-
-            </div>
-
-
-
-
-        `;
-
-
-
-
-
-
-
-
-
-                // --- 廠商名稱保護邏輯 ---
-
+                `;
 
 
 
                 const vendorNameInput = headerDiv.querySelector('.input-vendor-name');
 
-
-
-
                 let originalName = vendor.name;
 
-
-
-
-
-
-
-
-
-                vendorNameInput.addEventListener('focus', (e) => {
-
-
-
-
-                        originalName = e.target.value;
-
-
-
-
-                });
-
-
-
-
-
-
-
-
+                vendorNameInput.addEventListener('focus', (e) => { originalName = e.target.value; });
 
                 vendorNameInput.addEventListener('change', (e) => {
 
-
-
-
                         const newName = e.target.value;
-
-
-
 
                         if (newName !== originalName) {
 
-
-
-
                                 if (confirm(`確定要將廠商名稱「${originalName}」改為「${newName}」嗎？`)) {
-
-
-
 
                                         originalName = newName;
 
-
-
-
                                         vendor.name = newName;
-
-
-
 
                                 } else {
 
-
-
-
                                         e.target.value = originalName;
-
-
-
 
                                 }
 
-
-
-
                         }
 
-
-
-
                 });
-
-
-
-
-
-
-
-
-
-                // --- Vendor Products Container ---
-
 
 
 
                 const productsDiv = document.createElement('div');
 
-
-
-
                 productsDiv.className = `vendor-products ${vendor.isExpanded ? 'expanded' : ''}`;
-
-
-
-
-
-
 
 
 
                 const table = document.createElement('table');
 
-
-
-
                 table.innerHTML = `
 
+                    <thead>
 
+                        <tr>
 
+                            <th>品名</th><th>庫存</th><th>銷量</th><th>建議進貨量</th><th>刪除</th>
 
-            <thead>
+                        </tr>
 
+                    </thead>
 
+                    <tbody></tbody>
 
-
-                <tr>
-
-
-
-
-                    <th>品名</th>
-
-
-
-
-                    <th>庫存</th>
-
-
-
-
-                    <th>銷量</th>
-
-
-
-
-                    <th>建議進貨量</th>
-
-
-
-
-                    <th>刪除</th>
-
-
-
-
-                </tr>
-
-
-
-
-            </thead>
-
-
-
-
-            <tbody></tbody>
-
-
-
-
-        `;
-
-
-
+                `;
 
                 const tbody = table.querySelector('tbody');
 
-
-
-
-
-
-
-
-
                 vendor.products.forEach(prod => {
-
-
-
 
                         tbody.appendChild(createProductRow(prod, vendor.products));
 
-
-
-
                 });
-
-
-
-
-
-
 
 
 
                 productsDiv.appendChild(table);
 
-
-
-
                 groupDiv.appendChild(headerDiv);
-
-
-
 
                 groupDiv.appendChild(productsDiv);
 
-
-
-
-
-
-
-
-
-                // --- Event Listeners for Header ---
-
+                refreshVendorHeaderStatus(groupDiv);
 
 
 
                 const titleWrapper = headerDiv.querySelector('.vendor-title-wrapper');
 
-                // Prevent toggle when clicking the input itself
                 vendorNameInput.addEventListener('click', (e) => e.stopPropagation());
 
                 titleWrapper.addEventListener('click', () => {
+
                         vendor.isExpanded = !vendor.isExpanded;
-                        renderAll();
+
+                        headerDiv.classList.toggle('expanded', vendor.isExpanded);
+
+                        productsDiv.classList.toggle('expanded', vendor.isExpanded);
+
                         syncMasterToggle();
+
                 });
-
-                // Add Product
-
-
-
-
-
-
-
-
-
-                // Add Product
-
 
 
 
                 headerDiv.querySelector('.add-product-btn').addEventListener('click', (e) => {
 
-
-
-
                         e.stopPropagation();
-
-
-
 
                         if (confirm(`確定要在「${vendor.name || '此廠商'}」底下新增一項全新的食材品項嗎？`)) {
 
-
-
-
                                 if (!vendor.isExpanded) {
-
-
-
 
                                         vendor.isExpanded = true;
 
-
-
-
                                         headerDiv.classList.add('expanded');
-
-
-
 
                                         productsDiv.classList.add('expanded');
 
-
-
-
                                 }
 
-
-
-
-                                const newProduct = {
-
-
-
-
-                                        id: 'p_' + Date.now(),
-
-
-
-
-                                        name: '',
-
-
-
-
-                                        stock: 0,
-
-
-
-
-                                        sales: 0,
-
-
-
-
-                                        suggested: 0,
-
-
-
-
-                                        limit: 20
-
-
-
-
-                                };
-
-
-
+                                const newProduct = { id: 'p_' + Date.now(), name: '', stock: 0, sales: 0, suggested: 0, limit: 20 };
 
                                 vendor.products.push(newProduct);
 
-
-
-
-                                tbody.appendChild(createProductRow(newProduct));
-
-
-
+                                tbody.appendChild(createProductRow(newProduct, vendor.products));
 
                         }
 
-
-
-
                 });
-
-
-
-
-
-
-
-
-
-                // Delete Vendor
-
 
 
 
                 headerDiv.querySelector('.delete-vendor-btn').addEventListener('click', (e) => {
 
-
-
-
                         e.stopPropagation();
-
-
-
 
                         if (confirm(`確定要將「${vendor.name || '此廠商'}」以及它底下所有的食材清單徹底刪除嗎？`)) {
 
-
-
-
                                 const index = vendorsData.indexOf(vendor);
-                                if (index > -1) {
-                                    vendorsData.splice(index, 1);
-                                }
+
+                                if (index > -1) { vendorsData.splice(index, 1); }
+
                                 groupDiv.remove();
-
-
-
 
                         }
 
-
-
-
                 });
-
-
-
-
-
-
 
 
 
                 return groupDiv;
 
-
-
-
         }
-
-
-
-
-
-
 
 
 
         function createProductRow(data, productsArray) {
 
-
-
-
                 const tr = document.createElement('tr');
 
+                const spec = parseProductSpec(data.name || '');
 
+                const initialDiff = ((Number(data.sales) || 0) / spec.qty) - (Number(data.stock) || 0);
 
-
-                tr.dataset.id = data.id;
-
-
-
-
-
-
-
-
-
-                const stockVal = Number(data.stock) || 0;
-
-
-
-
-                const salesVal = Number(data.sales) || 0;
-
-
-
-
-                const diff = salesVal - stockVal;
-
-
-
-
-
-
-                const suggestedPlaceholder = calculateIdeal(diff);
-
-
-
-
-
-
-
-
-
-
-
+                const suggestedPlaceholder = calculateIdeal(initialDiff);
 
 
 
                 tr.innerHTML = `
 
+                    <td><input type="text" class="input-product ${data.isTopSales ? 'top-sales-name' : ''}" value="${data.name}" placeholder="輸入唯一品名" ${data.name ? 'readonly' : ''}></td>
 
+                    <td class="col-num"><div class="input-with-unit"><input type="number" class="input-stock" min="0" step="0.5" value="${data.stock}" placeholder="0"><span class="unit-text">${spec.unit}</span></div></td>
 
+                    <td class="col-num"><div class="input-with-unit"><input type="number" class="input-sales" min="0" value="${data.sales}" placeholder="0"><span class="unit-text">份</span></div></td>
 
-            <td><input type="text" class="input-product" value="${data.name}" placeholder="輸入唯一品名" ${data.name ? 'readonly' : ''}></td>
+                    <td class="col-num relative-cell"><div class="input-with-unit"><input type="number" class="input-suggested" value="${data.suggested}" placeholder="" title="防呆上限: ${data.limit || 20}"><span class="unit-text">${spec.unit}</span><span class="suggested-hint">(${formatUnitValue(suggestedPlaceholder)} ${spec.unit})</span></div></td>
 
+                    <td><button class="action-btn delete-btn" title="刪除品名">✖</button></td>
 
-
-
-            <td class="col-num"><input type="number" class="input-stock" min="0" value="${data.stock}" placeholder="0"></td>
-            <td class="col-num"><input type="number" class="input-sales" min="0" value="${calculateIdeal(data.sales)}" placeholder="0"></td>
-
-
-
-
-            <td class="col-num relative-cell">
-
-
-
-
-                <input type="number" class="input-suggested" value="${data.suggested}" placeholder="" title="防呆上限: ${data.limit || 20}">
-
-
-
-
-                <span class="suggested-hint">(${suggestedPlaceholder})</span>
-
-
-
-
-            </td>
-
-
-
-
-            <td>
-
-
-
-
-                <button class="action-btn delete-btn" title="刪除品名">✖</button>
-
-
-
-
-            </td>
-
-
-
-
-        `;
-
-
-
-
-
-
+                `;
 
 
 
                 const nameInput = tr.querySelector('.input-product');
-                nameInput.addEventListener('change', () => {
-                        data.name = nameInput.value;
-                });
+
+                nameInput.addEventListener('change', () => { data.name = nameInput.value; });
+
+
 
                 const stockInput = tr.querySelector('.input-stock');
 
-
-
-
                 const salesInput = tr.querySelector('.input-sales');
 
-
-
-
                 const suggestedInput = tr.querySelector('.input-suggested');
-
-
-
 
                 const hintLabel = tr.querySelector('.suggested-hint');
 
 
 
-
-
-
-
-
-
                 const updateState = () => {
 
-
-
-
-                        const rawStock = stockInput.value;
-
-
-
-
-                        const rawSales = salesInput.value;
-
-
-
-
-
-
-
-
-
-                        if (rawStock !== '' && Number(rawStock) < 0) stockInput.value = 0;
-
-
-
-
-                        if (rawSales !== '' && Number(rawSales) < 0) salesInput.value = 0;
-
-
-
-
-
-
-
-
-
                         const currentStock = stockInput.value === '' ? null : Number(stockInput.value);
+
                         const currentSales = salesInput.value === '' ? null : Number(salesInput.value);
 
-                        // 同步資料回物件
-                        data.stock = currentStock;
-                        data.sales = currentSales;
+                        const suggestedValue = suggestedInput.value === '' ? null : Number(suggestedInput.value);
 
-
-                        // 1. 漏填提醒邏輯
+                        data.stock = currentStock; data.sales = currentSales; data.suggested = suggestedValue;
 
 
 
+                        const stockMissing = (stockInput.value === '');
 
-                        const isPartiallyFilled = (stockInput.value !== '' && salesInput.value === '') || (stockInput.value === '' && salesInput.value !== '');
+                        if (stockMissing) stockInput.classList.add('missing-input');
 
-
-
-
-                        if (isPartiallyFilled) {
+                        else stockInput.classList.remove('missing-input');
 
 
 
+                        const productSpec = parseProductSpec(data.name || '');
 
-                                if (stockInput.value === '') stockInput.classList.add('missing-input');
-
-
-
-
-                                else stockInput.classList.remove('missing-input');
-
-
-
-
-                                if (salesInput.value === '') salesInput.classList.add('missing-input');
-
-
-
-
-                                else salesInput.classList.remove('missing-input');
-
-
-
-
-                        } else {
-
-
-
-
-                                stockInput.classList.remove('missing-input');
-
-
-
-
-                                salesInput.classList.remove('missing-input');
-
-
-
-
-                        }
-
-
-
-
-
-
-
-
-
-                        // 2. 超大數值提醒 (動態防呆閥值) - 僅套用於建議進貨量
-
-
-
+                        const idealRestock = calculateIdeal((currentSales || 0) / productSpec.qty - (currentStock || 0));
 
                         const limit = data.limit || 20;
 
 
 
+                        if (suggestedValue !== null && (suggestedValue !== idealRestock || suggestedValue > limit)) suggestedInput.classList.add('warning-large');
 
+                        else suggestedInput.classList.remove('warning-large');
 
 
 
+                        hintLabel.textContent = `(${formatUnitValue(idealRestock)} ${productSpec.unit})`;
 
+                        const needsRestockAction = idealRestock > 0 && (suggestedValue === null || suggestedValue < idealRestock);
 
-                        // 3. 一致性與動態上限檢查
+                        if (stockMissing || needsRestockAction) tr.classList.add('warning-state');
 
-
-
-
-                        const suggestedValue = suggestedInput.value === '' ? null : Number(suggestedInput.value);
-                        data.suggested = suggestedValue;
-
-
-
-
-                        const diff = (currentSales || 0) - (currentStock || 0);
-
-
-
-
-                        const idealRestock = calculateIdeal(diff);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        if (suggestedValue !== null && (suggestedValue !== idealRestock || suggestedValue > limit)) {
-
-
-
-
-                                suggestedInput.classList.add('warning-large');
-
-
-
-
-                        } else {
-
-
-
-
-                                suggestedInput.classList.remove('warning-large');
-
-
-
-
-                        }
-
-
-
-
-
-
-
-
-
-                        hintLabel.textContent = `(${idealRestock})`;
-
-
-
-
-
-
-
-
-
-                        // 警示燈聯動 (warning-state)
-
-
-
-
-                        if (idealRestock > 0 && (suggestedValue === null || suggestedValue < idealRestock)) {
-
-
-
-
-                                tr.classList.add('warning-state');
-
-
-
-
-                        } else {
-
-
-
-
-                                tr.classList.remove('warning-state');
-
-
-
-
-                        }
-
-
-
-
-
-
-
-
-
-                        // 向上聯動標題
-
+                        else tr.classList.remove('warning-state');
 
 
 
                         const groupDiv = tr.closest('.vendor-group');
 
-
-
-
-                        if (groupDiv) {
-
-
-
-
-                                const header = groupDiv.querySelector('.vendor-header');
-
-
-
-
-                                const needsAttention = groupDiv.querySelectorAll('.missing-input, .warning-large, .warning-state').length > 0;
-
-
-
-
-                                if (needsAttention) header.classList.add('vendor-error');
-
-
-
-
-                                else header.classList.remove('vendor-error');
-
-
-
-
-                        }
-
-
-
+                        if (groupDiv) refreshVendorHeaderStatus(groupDiv);
 
                 };
-
-
-
-
-
-
-
-
-
-                const normalizeInput = (input) => {
-
-
-
-
-                        if (input.value !== '') {
-
-
-
-
-                                input.value = Number(input.value);
-
-
-
-
-                        }
-
-
-
-
-                        updateState();
-
-
-
-
-                };
-
-
-
-
-
-
 
 
 
                 stockInput.addEventListener('input', updateState);
 
-
-
-
                 salesInput.addEventListener('input', updateState);
-
-
-
 
                 suggestedInput.addEventListener('input', updateState);
 
 
 
-
-                stockInput.addEventListener('blur', () => normalizeInput(stockInput));
-
-
-
-
-                salesInput.addEventListener('blur', () => normalizeInput(salesInput));
-
-
-
-
-                suggestedInput.addEventListener('blur', () => normalizeInput(suggestedInput));
-
-
-
-
-
-
-
-
-
-                // Delete Row
-
-
-
-
                 tr.querySelector('.delete-btn').addEventListener('click', () => {
 
-
-
-
-                        if (confirm(`確定要刪除「${tr.querySelector('.input-product').value || '此品項'}」嗎？`)) {
-
-
-
+                        if (confirm(`確定要刪除「${nameInput.value || '此品項'}」嗎？`)) {
 
                                 if (productsArray) {
-                                    const index = productsArray.indexOf(data);
-                                    if (index > -1) {
-                                        productsArray.splice(index, 1);
-                                    }
+
+                                        const index = productsArray.indexOf(data);
+
+                                        if (index > -1) productsArray.splice(index, 1);
+
                                 }
+
                                 tr.remove();
 
+                                const groupDiv = tr.closest('.vendor-group');
 
-
-
-                                // 也要同步檢查標題紅燈
-
-
-
-
-                                const dummyUpdate = document.createElement('tr');
-
-
-
-
-                                tr.parentNode.appendChild(dummyUpdate);
-
-
-
-
-                                dummyUpdate.remove();
-
-
-
+                                if (groupDiv) refreshVendorHeaderStatus(groupDiv);
 
                         }
 
-
-
-
                 });
 
 
 
-
-
-
-
-
-
-                // 命名後自動鎖定
-                nameInput.addEventListener('blur', () => {
-
-
-
-
-                        if (nameInput.value !== '') nameInput.readOnly = true;
-
-
-
-
-                });
-
-
-
-
-
-
-
-
-
-                // 初始化檢查
-
-
-
+                nameInput.addEventListener('blur', () => { if (nameInput.value !== '') nameInput.readOnly = true; });
 
                 updateState();
 
-
-
-
-
-
-
-
-
                 return tr;
-
-
-
 
         }
 
 
 
-
-
-
-
-
-
-        // --- Global Actions ---
-
-
-
-
         addVendorBtn.addEventListener('click', () => {
 
+                const newVendor = { id: 'v_' + Date.now(), name: '', isExpanded: true, products: [] };
 
+                vendorsData.push(newVendor);
 
+                const vendorEl = createVendorElement(newVendor);
 
-                if (confirm('確定要手動新增一個全新的廠商收納類別嗎？')) {
+                container.appendChild(vendorEl);
 
-
-
-
-                        const newVendor = {
-
-
-
-
-                                id: 'v_' + Date.now(),
-
-
-
-
-                                name: '',
-
-
-
-
-                                isExpanded: true,
-
-
-
-
-                                products: []
-
-
-
-
-                        };
-
-
-
-
-                        vendorsData.push(newVendor);
-                        const vendorEl = createVendorElement(newVendor);
-                        container.appendChild(vendorEl);
-
-
-
-
-                        setTimeout(() => {
-
-
-
-
-                                vendorEl.querySelector('.input-vendor-name').focus();
-
-
-
-
-                        }, 50);
-
-
-
-
-                }
-
-
-
+                setTimeout(() => { vendorEl.querySelector('.input-vendor-name').focus(); }, 50);
 
         });
-
-
-
-
-
-
 
 
 
         saveBtn.addEventListener('click', () => {
 
-
-
-
-                const missingCount = document.querySelectorAll('.missing-input').length;
-
-
-
-
-                const warningCount = document.querySelectorAll('.warning-large').length;
-
-
-
-
-
-
-
-
-
-                if (missingCount > 0 || warningCount > 0) {
-
-
-
-
-                        const goAhead = confirm(`⚠ 盤點檢查報告：\n- 漏填欄位：${missingCount} 個\n- 數值異常：${warningCount} 個\n\n確定要以此狀態直接存檔嗎？`);
-
-
-
-
-                        if (!goAhead) return;
-
-
-
-
-                }
-
-
-
-
-
-
-
-
-
-                // 1. 儲存至瀏覽器本地空間
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(vendorsData));
-                alert('🎉 資料已成功儲存至瀏覽器！\n（下次開啟時會自動載入目前狀態）');
+
+                alert('🎉 資料已成功儲存至瀏覽器！');
+
         });
 
-        // 2. 匯出 Excel (.xlsx) 檔案
-        exportExcelBtn.addEventListener('click', () => {
-                const missingRows = [];
-                const warningRows = [];
-                
-                // 檢查是否有漏填或異常（選擇性保留檢查邏輯）
-                vendorsData.forEach(v => {
-                    v.products.forEach(p => {
-                        if ((p.stock === null || p.sales === null) && (p.stock !== null || p.sales !== null)) missingRows.push(p.name);
-                    });
-                });
 
-                if (missingRows.length > 0) {
-                    if (!confirm(`⚠ 發現有 ${missingRows.length} 個品項漏填欄位，確定要直接匯出嗎？`)) return;
-                }
+
+        exportExcelBtn.addEventListener('click', () => {
 
                 try {
+
                         const date = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+
                         const fileName = `818_進貨清單_${date}.xlsx`;
 
-                        // 準備資料：將巢狀結構轉換為二維陣列（表格型態）
                         const exportData = [['廠商名稱', '品名規格', '目前庫存', '最近一週銷售(耗用)', '建議進貨數量']];
-                        
-                        vendorsData.forEach(vendor => {
-                                vendor.products.forEach(product => {
-                                        exportData.push([
-                                                vendor.name,
-                                                product.name,
-                                                product.stock || 0,
-                                                calculateIdeal(product.sales || 0),
-                                                product.suggested || 0
-                                        ]);
-                                });
-                        });
+
+                        vendorsData.forEach(v => v.products.forEach(p => {
+
+                                const sp = parseProductSpec(p.name || '');
+
+                                exportData.push([v.name, p.name, (p.stock || 0) + ' ' + sp.unit, calculateIdeal(p.sales || 0) + ' 份', (p.suggested || 0) + ' ' + sp.unit]);
+
+                        }));
 
                         const ws = XLSX.utils.aoa_to_sheet(exportData);
+
                         const wb = XLSX.utils.book_new();
+
                         XLSX.utils.book_append_sheet(wb, ws, "進貨清單");
+
                         XLSX.writeFile(wb, fileName);
-                        
-                        alert(`📊 Excel 表格已匯出：${fileName}`);
-                } catch (err) {
-                        console.error('匯出 Excel 失敗:', err);
-                        alert('❌ 匯出 Excel 時發生錯誤，請檢查主控台');
-                }
+
+                } catch (err) { alert('❌ 匯出失敗'); }
+
         });
 
-        // 3. 一鍵收納邏輯 (全開 / 全關 切換)
+
+
         collapseAllBtn.addEventListener('click', () => {
+
                 const anyOpen = vendorsData.some(v => v.isExpanded);
-                vendorsData.forEach(vendor => {
-                        vendor.isExpanded = !anyOpen;
-                });
+
+                vendorsData.forEach(v => { v.isExpanded = !anyOpen; });
+
                 renderAll();
-                syncMasterToggle();
+
         });
 
-        // 初始渲染
+
+
         renderAll();
-        syncMasterToggle();
 
 });
-
-
-
 

@@ -9,7 +9,7 @@
     --accent-purple: #bd00ff;
     --danger-red: #ff4b4b;
     --danger-red-glow: rgba(255, 75, 75, 0.4);
-    --text-main: #f0f6fc;
+    --text-main: #ffffff;
     --text-muted: #8b949e;
     --font-sans: 'Outfit', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -28,7 +28,7 @@ body {
     font-family: var(--font-sans);
     min-height: 100vh;
     padding: 3rem 2rem;
-    background-image: 
+    background-image:
         radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.08), transparent 30%),
         radial-gradient(circle at 90% 80%, rgba(189, 0, 255, 0.05), transparent 30%),
         linear-gradient(rgba(5, 7, 10, 0.8), rgba(5, 7, 10, 0.8));
@@ -209,8 +209,15 @@ body {
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 table {
@@ -218,14 +225,40 @@ table {
     border-collapse: separate;
     border-spacing: 0 8px;
     text-align: left;
-    table-layout: fixed; /* 固定版面避免擠壓 */
+    table-layout: fixed;
+    /* 固定版面避免擠壓 */
 }
 
-th:nth-child(1), td:nth-child(1) { width: 40%; } /* 品名 */
-th:nth-child(2), td:nth-child(2) { width: 15%; } /* 庫存 */
-th:nth-child(3), td:nth-child(3) { width: 15%; } /* 銷量 */
-th:nth-child(4), td:nth-child(4) { width: 22%; } /* 建議進貨量 */
-th:nth-child(5), td:nth-child(5) { width: 8%; }  /* 刪除 */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 40%;
+}
+
+/* 品名 */
+th:nth-child(2),
+td:nth-child(2) {
+    width: 15%;
+}
+
+/* 庫存 */
+th:nth-child(3),
+td:nth-child(3) {
+    width: 15%;
+}
+
+/* 銷量 */
+th:nth-child(4),
+td:nth-child(4) {
+    width: 22%;
+}
+
+/* 建議進貨量 */
+th:nth-child(5),
+td:nth-child(5) {
+    width: 8%;
+}
+
+/* 刪除 */
 
 th {
     color: var(--text-muted);
@@ -235,10 +268,15 @@ th {
     letter-spacing: 1.5px;
     padding: 0.5rem 1rem;
     opacity: 0.7;
-    text-align: center; /* 預設文字居中 */
+    text-align: center;
+    /* 預設文字居中 */
 }
 
-th:first-child { text-align: left; } /* 品名靠左 */
+th:first-child {
+    text-align: left;
+}
+
+/* 品名靠左 */
 
 td {
     padding: 0.75rem 1rem;
@@ -289,9 +327,15 @@ input:focus {
     background: rgba(0, 242, 254, 0.05);
 }
 
+.top-sales-name {
+    color: #eeff00 !important;
+    font-weight: 600;
+}
+
 .col-num input {
     font-family: var(--font-mono);
-    text-align: center; /* 讓數字在文字正下方 */
+    text-align: center;
+    /* 讓數字在文字正下方 */
 }
 
 /* --- 防呆機制樣式 --- */
@@ -312,17 +356,15 @@ input:focus {
 }
 
 .suggested-hint {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-family: var(--font-mono);
     color: var(--accent-cyan);
     opacity: 0.4;
     pointer-events: none;
     transition: all 0.3s ease;
     white-space: nowrap;
+    margin-left: 4px;
+    /* 與單位保持一點距離 */
 }
 
 tr:hover .suggested-hint {
@@ -387,7 +429,8 @@ tr:hover .suggested-hint {
     background: rgba(0, 242, 254, 0.05);
     color: var(--accent-cyan);
     border: 1px solid var(--accent-cyan);
-    padding: 1rem 2.5rem; /* 與 .save-btn 相同 */
+    padding: 1rem 2.5rem;
+    /* 與 .save-btn 相同 */
     border-radius: 14px;
     cursor: pointer;
     font-family: var(--font-sans);
@@ -447,10 +490,42 @@ tr:hover .suggested-hint {
 
 /* --- 廠商標題異常聯動樣式 --- */
 .vendor-header.vendor-error {
-    border-left: 6px solid var(--danger-red);
-    background: linear-gradient(90deg, rgba(255, 77, 77, 0.08) 0%, transparent 100%);
+    border-left: 6px solid var(--danger-red) !important;
+    background: linear-gradient(90deg, rgba(255, 75, 75, 0.4) 0%, rgba(255, 75, 75, 0.2) 60%, rgba(255, 75, 75, 0.1) 100%) !important;
+    box-shadow: inset 0 0 20px rgba(255, 75, 75, 0.25) !important;
 }
 
 .vendor-header.vendor-error .input-vendor-name {
-    color: var(--danger-red) !important;
+    color: #ffadaa !important;
+    text-shadow: 0 0 10px rgba(255, 75, 75, 0.5);
+}
+
+.vendor-header.vendor-error .toggle-icon {
+    color: var(--danger-red);
+    opacity: 1;
+}
+
+.vendor-group:has(.vendor-error) {
+    border-color: rgba(255, 75, 75, 0.4);
+    box-shadow: 0 0 15px rgba(255, 75, 75, 0.1);
+}
+
+/* --- 單位顯示樣式 --- */
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.input-with-unit input {
+    flex: 1;
+    min-width: 0;
+}
+
+.unit-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+    white-space: nowrap;
 }

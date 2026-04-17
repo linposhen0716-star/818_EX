@@ -105,6 +105,27 @@ for ing, avg_qty in average_ingredient_sales.items():
                 official_sales[translated] = 0
             official_sales[translated] += avg_qty
 
+# Calculate top 20% based on total (official_sales)
+# Note: official_sales currently contains weekly average if weeks > 1, 
+# but ranking by average is same as ranking by total.
+# However, to be strict with "Total Sales", let's use the actual sums.
+total_official_sales = {}
+for ing, total_qty in total_ingredient_sales.items():
+    translated = mapping_dict.get(ing, ing)
+    if translated:
+        if isinstance(translated, list):
+            split_qty = total_qty / len(translated)
+            for t in translated:
+                total_official_sales[t] = total_official_sales.get(t, 0) + split_qty
+        else:
+            total_official_sales[translated] = total_official_sales.get(translated, 0) + total_qty
+
+# Sort by total volume
+sorted_sales = sorted(total_official_sales.items(), key=lambda x: x[1], reverse=True)
+# Only consider items with sales > 0 for ranking if possible, or just top 20% of all mentioned
+top_count = max(1, int(len(sorted_sales) * 0.2))
+top_names = set([name for name, val in sorted_sales[:top_count] if val > 0])
+
 # Load main.js
 with codecs.open('JavaScript/main.js', 'r', 'utf-8') as f:
     content = f.read()
@@ -127,6 +148,12 @@ for v in vendorsData:
             matched_count += 1
         else:
             p['sales'] = 0
+        
+        # Mark as top sales if in top 20% 
+        if official_name in top_names:
+            p['isTopSales'] = True
+        else:
+            p.pop('isTopSales', None) # Remove if not top
 
 js_str = json.dumps(vendorsData, ensure_ascii=False, indent=8)
 new_content = content[:match.start(1)] + js_str + content[match.end(1):]
