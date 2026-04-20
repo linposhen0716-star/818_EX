@@ -1487,7 +1487,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const currentStock = stockInput.value === '' ? null : Number(stockInput.value);
 
-                        const currentSales = salesInput.value === '' ? null : Number(salesInput.value);
+                        const rawSales = salesInput.value === '' ? null : Number(salesInput.value);
+                const currentSales = rawSales === null ? null : Math.ceil(rawSales * 2) / 2; // 四捨五入至最近的 0.5 整數
 
                         const suggestedValue = suggestedInput.value === '' ? null : Number(suggestedInput.value);
 
@@ -1594,6 +1595,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         saveBtn.addEventListener('click', () => {
+
+                let emptyCount = 0;
+                let abnormalCount = 0;
+
+
+
+                vendorsData.forEach(v => {
+
+                        v.products.forEach(p => {
+
+                                const spec = parseProductSpec(p.name || '');
+
+                                const idealRestock = calculateIdeal((p.sales || 0) / spec.qty - (p.stock || 0));
+
+                                const limit = p.limit || 20;
+
+
+
+                                // 檢查欄位空缺 (庫存未填計 1，建議進貨需求未填計 1)
+                                if (p.stock === null || p.stock === '') {
+                                        emptyCount++;
+                                }
+                                if (idealRestock > 0 && (p.suggested === null || p.suggested === '')) {
+                                        emptyCount++;
+                                }
+
+
+
+                                // 檢查數值異常 (填了建議進貨但與理想值不符，或超過上限)
+                                if (p.suggested !== null && p.suggested !== '' && (p.suggested !== idealRestock || p.suggested > limit)) {
+                                        abnormalCount++;
+                                }
+
+                        });
+
+                });
+
+
+
+                if (emptyCount > 0 || abnormalCount > 0) {
+                        const warningMsg = `偵測到以下狀況：\n${emptyCount > 0 ? `⚠️ 欄位空缺：${emptyCount} 欄\n` : ''}${abnormalCount > 0 ? `⚠️ 數值異常：${abnormalCount} 個\n` : ''}\n你確定要進行存檔嗎？`;
+                        if (!confirm(warningMsg)) return;
+                }
+
+
 
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(vendorsData));
 
